@@ -3,28 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>سامانه مدیریت مراجع</title>
 
-  <meta name="theme-color" content="#0d6efd" />
+  <meta name="theme-color" content="#6f42c1" />
   <link rel="manifest" href="manifest.json" />
 
   <style>
-    html, body, iframe { width: 100%; height: 100%; margin: 0; padding: 0; border: 0; }
-    body { overflow: hidden; }
+    body {
+      font-family: sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .menu {
+      max-width: 420px;
+      margin: auto;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin: 12px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .green { background: #28a745; }
+    .yellow { background: #ffc107; color:#333; }
+    .blue { background: #007bff; }
+    .gray { background: #6c757d; }
   </style>
 </head>
 
 <body>
- <script>
-  window.location.href =
+
+  <h1>سامانه مدیریت مراجع</h1>
+
+  <div class="menu">
+    <button class="btn green"
+      onclick="go('')">
+      ➕ ثبت مراجع جدید
+    </button>
+
+    <button class="btn yellow"
+      onclick="go('?page=editReferral')">
+      📝 ویرایش پرونده مراجع
+    </button>
+
+    <button class="btn blue"
+      onclick="go('?page=sessions')">
+      📅 مدیریت جلسات
+    </button>
+
+    <button class="btn gray"
+      onclick="go('?page=referralReport')">
+      📄 مشاهده پرونده مراجع
+    </button>
+  </div>
+
+<script>
+  const BASE =
     "https://script.google.com/macros/s/AKfycbwhZf8S7RNNLusYGhDaw8QfQ-dxiD04yqaQQd_M7SzT/exec";
+
+  function go(q) {
+    window.location.href = BASE + q;
+  }
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js");
+  }
 </script>
 
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js");
-    }
-  </script>
 </body>
 </html>
