@@ -1,14 +1,25 @@
 {
-  "name": "مدیریت مراجع درمان",
-  "short_name": "درمان",
-  "start_url": ".",
+  "name": "سامانه مدیریت مراجعین درمان دکتر ملیحه غفوری منش",
+  "short_name": "مدیریت درمان دکترغفوری منش ",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0d6efd",
+
+  "background_color": "#6f42c1",
+  "theme_color": "#6f42c1",
+
   "lang": "fa",
   "dir": "rtl",
+
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
