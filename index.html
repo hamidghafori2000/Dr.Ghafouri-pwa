@@ -3,87 +3,172 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>سامانه مدیریت مراجعین دکتر غفوری منش</title>
+  <title>سامانه مدیریت مراجعین | دکتر ملیحه غفوری منش</title>
 
   <meta name="theme-color" content="#6f42c1" />
   <link rel="manifest" href="manifest.json" />
 
+  <!-- فونت فارسی -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
     body {
-      font-family: sans-serif;
-      background: #f5f6fa;
       margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
+      background: linear-gradient(135deg, #f3f0fa, #f8f9fd);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #333;
-      margin-bottom: 30px;
     }
-    .menu {
-      max-width: 420px;
-      margin: auto;
-    }
-    .btn {
-      display: block;
+
+    .card {
       width: 100%;
-      padding: 16px;
-      margin: 12px 0;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      cursor: pointer;
+      max-width: 420px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      animation: fadeIn 0.5s ease;
     }
-    .green { background: #28a745; }
-    .yellow { background: #ffc107; color:#333; }
-    .blue { background: #007bff; }
-    .gray { background: #6c757d; }
+
+    h1, h2 {
+      margin-top: 0;
+      text-align: center;
+      color: #4b2c83;
+      font-weight: 600;
+    }
+
+    p.subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+      text-align: right;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: #6f42c1;
+      box-shadow: 0 0 0 2px rgba(111,66,193,0.15);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      font-size: 15px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+
+    .primary { background: #6f42c1; }
+    .green   { background: #28a745; }
+    .yellow  { background: #f0ad4e; color:#333; }
+    .blue    { background: #007bff; }
+    .gray    { background: #6c757d; }
+    .danger  { background: #dc3545; }
+
+    .error {
+      color: #dc3545;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .menu-btn {
+      margin: 10px 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 
 <body>
 
 <!-- LOGIN -->
-<div id="loginBox">
+<div id="loginBox" class="card">
   <h2>🔐 ورود به سامانه</h2>
+  <p class="subtitle">سامانه مدیریت مراجعین</p>
 
-  <input id="username" placeholder="نام کاربری"
-    style="width:100%;padding:12px;margin-top:15px;font-size:16px;" />
+  <div class="field">
+    <label>نام کاربری</label>
+    <input id="username" placeholder="مثلاً admin" />
+  </div>
 
-  <input id="password" type="password" placeholder="رمز عبور"
-    style="width:100%;padding:12px;margin-top:10px;font-size:16px;" />
+  <div class="field">
+    <label>رمز عبور</label>
+    <input id="password" type="password" placeholder="••••••" />
+  </div>
 
-  <button onclick="login()"
-    style="margin-top:20px;width:100%;padding:12px;
-           background:#6f42c1;color:#fff;
-           font-size:16px;border:none;border-radius:8px;">
-    ورود
-  </button>
+  <button class="btn primary" onclick="login()">ورود به سامانه</button>
 
-  <p id="error" style="color:red;margin-top:10px;"></p>
+  <div id="error" class="error"></div>
 </div>
 
 <!-- MENU -->
-<div id="menu" class="menu" style="display:none;">
+<div id="menu" class="card" style="display:none;">
+  <h1>📋 سامانه مدیریت مراجعین</h1>
+  <p class="subtitle">دکتر ملیحه غفوری منش</p>
 
-  <h1>سامانه مدیریت مراجع</h1>
-
-  <button onclick="go('')" class="btn green">➕ ثبت مراجع جدید</button>
-  <button onclick="go('?page=editReferral')" class="btn yellow">📝 ویرایش پرونده</button>
-  <button onclick="go('?page=sessions')" class="btn blue">📅 مدیریت جلسات</button>
-  <button onclick="go('?page=referralReport')" class="btn gray">📄 مشاهده پرونده</button>
-
-  <button onclick="logout()" class="btn"
-    style="background:#dc3545;margin-top:30px;">
-    خروج
+  <button class="btn green menu-btn" onclick="go('')">
+    ➕ ثبت مراجع جدید
   </button>
 
+  <button class="btn yellow menu-btn" onclick="go('?page=editReferral')">
+    📝 ویرایش پرونده مراجع
+  </button>
+
+  <button class="btn blue menu-btn" onclick="go('?page=sessions')">
+    📅 مدیریت جلسات درمان
+  </button>
+
+  <button class="btn gray menu-btn" onclick="go('?page=referralReport')">
+    📄 مشاهده و گزارش پرونده
+  </button>
+
+  <button class="btn danger" style="margin-top:25px;" onclick="logout()">
+    خروج از سامانه
+  </button>
 </div>
 
 <script>
-  // کاربران مجاز
   const USERS = [
     { user: "admin", pass: "1234" },
     { user: "staff", pass: "5678" }
@@ -103,7 +188,7 @@
       loginBox.style.display = "none";
       menu.style.display = "block";
     } else {
-      error.innerText = "نام کاربری یا رمز عبور اشتباه است";
+      error.innerText = "نام کاربری یا رمز عبور نادرست است";
     }
   }
 
@@ -116,7 +201,6 @@
     window.location.href = BASE + q;
   }
 
-  // اگر قبلاً لاگین کرده
   if (localStorage.getItem("loggedIn") === "yes") {
     loginBox.style.display = "none";
     menu.style.display = "block";
