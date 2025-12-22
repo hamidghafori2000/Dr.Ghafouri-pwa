@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>سامانه مدیریت مراجعین| دکتر ملیحه غفوری منش</title>
+
+  <title>سامانه مدیریت مراجعین | دکتر ملیحه غفوری منش</title>
 
   <meta name="theme-color" content="#6f42c1" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <link rel="manifest" href="manifest.json" />
 
   <!-- فونت فارسی -->
@@ -19,22 +23,46 @@
 
     body {
       margin: 0;
-      background: linear-gradient(135deg, #f3f0fa, #f8f9fd);
-      min-height: 100vh;
+      background: linear-gradient(135deg, #6f42c1 0%, #f8f9fd 45%);
+      min-height: 100svh;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #333;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .card {
       width: 100%;
       max-width: 420px;
       background: #fff;
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      animation: fadeIn 0.5s ease;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      animation: cardIn 0.6s cubic-bezier(.25,.8,.25,1);
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .fade-out {
+      animation: cardOut 0.4s ease forwards;
+    }
+
+    @keyframes cardOut {
+      to {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.97);
+      }
     }
 
     h1, h2 {
@@ -44,7 +72,7 @@
       font-weight: 600;
     }
 
-    p.subtitle {
+    .subtitle {
       text-align: center;
       font-size: 14px;
       color: #777;
@@ -65,11 +93,10 @@
 
     .field input {
       width: 100%;
-      padding: 12px 14px;
+      padding: 13px 14px;
       font-size: 15px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid #ddd;
-      transition: border 0.2s, box-shadow 0.2s;
     }
 
     .field input:focus {
@@ -84,15 +111,14 @@
       margin-top: 10px;
       font-size: 15px;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       cursor: pointer;
       color: #fff;
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    .btn:active {
+      transform: scale(0.97);
     }
 
     .primary { background: #6f42c1; }
@@ -102,6 +128,10 @@
     .gray    { background: #6c757d; }
     .danger  { background: #dc3545; }
 
+    .menu-btn {
+      margin: 10px 0;
+    }
+
     .error {
       color: #dc3545;
       font-size: 14px;
@@ -109,13 +139,12 @@
       margin-top: 12px;
     }
 
-    .menu-btn {
-      margin: 10px 0;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .loader {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-top: 12px;
+      display: none;
     }
   </style>
 </head>
@@ -125,7 +154,7 @@
 <!-- LOGIN -->
 <div id="loginBox" class="card">
   <h2>🔐 ورود به سامانه</h2>
-  <p class="subtitle">سامانه مدیریت مراجعین | دکتر ملیحه غفوری منش</p>
+  <p class="subtitle">سامانه مدیریت مراجعین<br>دکتر ملیحه غفوری منش</p>
 
   <div class="field">
     <label>نام کاربری</label>
@@ -139,6 +168,7 @@
 
   <button class="btn primary" onclick="login()">ورود به سامانه</button>
 
+  <div id="loader" class="loader">در حال ورود...</div>
   <div id="error" class="error"></div>
 </div>
 
@@ -177,23 +207,38 @@
   const BASE =
     "https://script.google.com/macros/s/AKfycbwhZf8S7RNNLusYGhDaw8QfQ-dxiD04yqaQQd_M7SzT/exec";
 
+  const AUTO_LOGOUT_MINUTES = 10;
+
   function login() {
     const u = username.value.trim();
     const p = password.value.trim();
 
     const ok = USERS.find(x => x.user === u && x.pass === p);
 
-    if (ok) {
-      localStorage.setItem("loggedIn", "yes");
-      loginBox.style.display = "none";
-      menu.style.display = "block";
-    } else {
+    if (!ok) {
       error.innerText = "نام کاربری یا رمز عبور نادرست است";
+      return;
     }
+
+    error.innerText = "";
+    loader.style.display = "block";
+
+    setTimeout(() => {
+      localStorage.setItem("loggedIn", "yes");
+      localStorage.setItem("loginTime", Date.now());
+
+      loginBox.classList.add("fade-out");
+
+      setTimeout(() => {
+        loginBox.style.display = "none";
+        menu.style.display = "block";
+      }, 400);
+
+    }, 900);
   }
 
   function logout() {
-    localStorage.removeItem("loggedIn");
+    localStorage.clear();
     location.reload();
   }
 
@@ -201,9 +246,23 @@
     window.location.href = BASE + q;
   }
 
+  function checkAutoLogout() {
+    const t = localStorage.getItem("loginTime");
+    if (!t) return;
+
+    const diff = (Date.now() - parseInt(t)) / 60000;
+    if (diff > AUTO_LOGOUT_MINUTES) {
+      logout();
+    }
+  }
+
+  setInterval(checkAutoLogout, 30000);
+
   if (localStorage.getItem("loggedIn") === "yes") {
-    loginBox.style.display = "none";
-    menu.style.display = "block";
+    setTimeout(() => {
+      loginBox.style.display = "none";
+      menu.style.display = "block";
+    }, 300);
   }
 
   if ("serviceWorker" in navigator) {
