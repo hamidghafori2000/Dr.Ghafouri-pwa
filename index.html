@@ -3,30 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>سامانه مدیریت مراجعین | دکتر ملیحه غفوری منش</title>
-
   <meta name="theme-color" content="#6f42c1" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
   <link rel="manifest" href="manifest.json" />
 
   <!-- فونت فارسی -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Vazirmatn', sans-serif;
-    }
-    .clinic-btn {
-  background: #fff4d6;   /* زرد خیلی ملایم */
-  color: #000 !important;
-}
-.clinic-btn:hover {
-  background: #ffe9b0;
-}
+    * { box-sizing: border-box; font-family: 'Vazirmatn', sans-serif; }
+
     body {
       margin: 0;
       background: linear-gradient(135deg, #6f42c1 0%, #f8f9fd 45%);
@@ -36,7 +24,6 @@
       justify-content: center;
       color: #333;
       user-select: none;
-      -webkit-user-select: none;
     }
 
     .card {
@@ -50,14 +37,8 @@
     }
 
     @keyframes cardIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.96);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      from { opacity: 0; transform: translateY(30px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .fade-out {
@@ -65,10 +46,7 @@
     }
 
     @keyframes cardOut {
-      to {
-        opacity: 0;
-        transform: translateY(-20px) scale(0.97);
-      }
+      to { opacity: 0; transform: translateY(-20px) scale(0.97); }
     }
 
     h1, h2 {
@@ -123,20 +101,22 @@
       transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
-    .btn:active {
-      transform: scale(0.97);
-    }
+    .btn:active { transform: scale(0.97); }
 
     .primary { background: #6f42c1; }
     .green   { background: #28a745; }
-    .yellow  { background: #f0ad4e; color:#333; }
+    .yellow  { background: #f0ad4e; color: #333; }
     .blue    { background: #007bff; }
     .gray    { background: #6c757d; }
     .danger  { background: #dc3545; }
 
-    .menu-btn {
-      margin: 10px 0;
+    .clinic-btn {
+      background: #fff4d6;
+      color: #000 !important;
     }
+    .clinic-btn:hover { background: #ffe9b0; }
+
+    .menu-btn { margin: 10px 0; }
 
     .error {
       color: #dc3545;
@@ -183,29 +163,13 @@
   <h1>📋 سامانه مدیریت مراجعین</h1>
   <p class="subtitle">دکتر ملیحه غفوری منش</p>
 
-  <button class="btn green menu-btn" onclick="go('')">
-    ➕ ثبت مراجع جدید
-  </button>
-
-  <button class="btn yellow menu-btn" onclick="go('?page=editReferral')">
-    📝 ویرایش پرونده مراجع
-  </button>
-
-  <button class="btn blue menu-btn" onclick="go('?page=sessions')">
-    📅 مدیریت جلسات درمان
-  </button>
-
-  <button class="btn gray menu-btn" onclick="go('?page=referralReport')">
-    📄 مشاهده و گزارش پرونده
-  </button>
-  
-<button class="btn clinic-btn menu-btn" onclick="go('?page=clinicReport')">
-  🏥 گزارش کلینیک‌ها
-</button>
-  
-  <button class="btn danger" style="margin-top:25px;" onclick="logout()">
-    خروج از سامانه
-  </button>
+  <button class="btn green menu-btn" onclick="go('')">➕ ثبت مراجع جدید</button>
+  <button class="btn yellow menu-btn" onclick="go('?page=editReferral')">📝 ویرایش پرونده مراجع</button>
+  <button class="btn blue menu-btn" onclick="go('?page=sessions')">📅 مدیریت جلسات درمان</button>
+  <button class="btn gray menu-btn" onclick="go('?page=referralReport')">📄 مشاهده و گزارش پرونده</button>
+  <button class="btn clinic-btn menu-btn" onclick="go('?page=clinicReport')">🏥 گزارش کلینیک‌ها</button>
+  <button class="btn clinic-btn menu-btn" onclick="go('?page=SessionForm')">🏥 گزارش</button>
+  <button class="btn danger" style="margin-top:25px;" onclick="logout()">خروج از سامانه</button>
 </div>
 
 <script>
@@ -214,15 +178,12 @@
     { user: "staff", pass: "5678" }
   ];
 
-  const BASE =
-    "https://script.google.com/macros/s/AKfycbwhZf8S7RNNLusYGhDaw8QfQ-dxiD04yqaQQd_M7SzT/exec";
-
+  const BASE = "https://script.google.com/macros/s/AKfycbwhZf8S7RNNLusYGhDaw8QfQ-dxiD04yqaQQd_M7SzT/exec";
   const AUTO_LOGOUT_MINUTES = 10;
 
   function login() {
     const u = username.value.trim();
     const p = password.value.trim();
-
     const ok = USERS.find(x => x.user === u && x.pass === p);
 
     if (!ok) {
@@ -243,7 +204,6 @@
         loginBox.style.display = "none";
         menu.style.display = "block";
       }, 400);
-
     }, 900);
   }
 
@@ -252,18 +212,13 @@
     location.reload();
   }
 
-  function go(q) {
-    window.location.href = BASE + q;
-  }
+  function go(q) { window.location.href = BASE + q; }
 
   function checkAutoLogout() {
     const t = localStorage.getItem("loginTime");
     if (!t) return;
-
     const diff = (Date.now() - parseInt(t)) / 60000;
-    if (diff > AUTO_LOGOUT_MINUTES) {
-      logout();
-    }
+    if (diff > AUTO_LOGOUT_MINUTES) logout();
   }
 
   setInterval(checkAutoLogout, 30000);
