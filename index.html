@@ -1,138 +1,60 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>سامانه مدیریت مراجعین | دکتر ملیحه غفوری منش</title>
-  <meta name="theme-color" content="#6f42c1" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href="manifest.json" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>سامانه مدیریت مراجعین | دکتر ملیحه غفوری منش</title>
+<meta name="theme-color" content="#6f42c1" />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- فونت فارسی -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <style>
-    * { box-sizing: border-box; font-family: 'Vazirmatn', sans-serif; }
-
-    body {
-      margin: 0;
-      background: linear-gradient(135deg, #6f42c1 0%, #f8f9fd 45%);
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #333;
-      user-select: none;
-    }
-
-    .card {
-      width: 100%;
-      max-width: 420px;
-      background: #fff;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      animation: cardIn 0.6s cubic-bezier(.25,.8,.25,1);
-    }
-
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(30px) scale(0.96); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .fade-out {
-      animation: cardOut 0.4s ease forwards;
-    }
-
-    @keyframes cardOut {
-      to { opacity: 0; transform: translateY(-20px) scale(0.97); }
-    }
-
-    h1, h2 {
-      margin-top: 0;
-      text-align: center;
-      color: #4b2c83;
-      font-weight: 600;
-    }
-
-    .subtitle {
-      text-align: center;
-      font-size: 14px;
-      color: #777;
-      margin-bottom: 25px;
-    }
-
-    .field {
-      margin-bottom: 16px;
-      text-align: right;
-    }
-
-    .field label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 6px;
-      color: #555;
-    }
-
-    .field input {
-      width: 100%;
-      padding: 13px 14px;
-      font-size: 15px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-    }
-
-    .field input:focus {
-      outline: none;
-      border-color: #6f42c1;
-      box-shadow: 0 0 0 2px rgba(111,66,193,0.15);
-    }
-
-    .btn {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      font-size: 15px;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      color: #fff;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
-    }
-
-    .btn:active { transform: scale(0.97); }
-
-    .primary { background: #6f42c1; }
-    .green   { background: #28a745; }
-    .yellow  { background: #f0ad4e; color: #333; }
-    .blue    { background: #007bff; }
-    .gray    { background: #6c757d; }
-    .danger  { background: #dc3545; }
-
-    .clinic-btn {
-      background: #fff4d6;
-      color: #000 !important;
-    }
-    .clinic-btn:hover { background: #ffe9b0; }
-
-    .menu-btn { margin: 10px 0; }
-
-    .error {
-      color: #dc3545;
-      font-size: 14px;
-      text-align: center;
-      margin-top: 12px;
-    }
-
-    .loader {
-      text-align: center;
-      font-size: 14px;
-      color: #777;
-      margin-top: 12px;
-      display: none;
-    }
-  </style>
+<style>
+*{box-sizing:border-box;font-family:'Vazirmatn',sans-serif}
+body{
+  margin:0;
+  min-height:100svh;
+  background:linear-gradient(135deg,#6f42c1 0%,#9c6be8 25%,#f5f5fc 80%);
+  display:flex;align-items:center;justify-content:center;
+  color:#333;overflow-x:hidden
+}
+.card{
+  width:100%;max-width:420px;
+  background:#fff;border-radius:18px;padding:32px 28px;
+  box-shadow:0 20px 45px rgba(111,66,193,.25);
+  animation:fadeIn .7s ease both
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.fade-out{animation:fadeOut .5s ease forwards}
+@keyframes fadeOut{to{opacity:0;transform:translateY(-20px)}}
+h1,h2{margin:0 0 10px;text-align:center;color:#563d7c;font-weight:600}
+.subtitle{text-align:center;font-size:14px;color:#777;margin-bottom:25px;line-height:1.6}
+.field{margin-bottom:18px;text-align:right}
+.field label{display:block;font-size:13px;margin-bottom:6px;color:#555}
+.field input{
+  width:100%;padding:12px 14px;font-size:15px;border-radius:12px;border:1px solid #ccc;
+  transition:border .2s,box-shadow .2s
+}
+.field input:focus{
+  outline:none;border-color:#6f42c1;
+  box-shadow:0 0 0 3px rgba(111,66,193,.15)
+}
+.btn{
+  width:100%;padding:13px 14px;margin-top:10px;font-size:15px;
+  border:none;border-radius:12px;cursor:pointer;
+  color:#fff;font-weight:500;transition:transform .1s,box-shadow .2s,background .2s
+}
+.btn:active{transform:scale(.97)}
+.btn:hover{box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.primary{background:#6f42c1}.primary:hover{background:#5a34ad}
+.green{background:#28a745}.green:hover{background:#23923d}
+.yellow{background:#ffc107;color:#222}.yellow:hover{background:#e0ac07}
+.blue{background:#007bff}.blue:hover{background:#0069d9}
+.gray{background:#6c757d}.gray:hover{background:#5a6268}
+.danger{background:#dc3545}.danger:hover{background:#c82333}
+.clinic-btn{background:#f8f0ff;color:#4b2c83}.clinic-btn:hover{background:#eaddff}
+.menu-btn{margin:8px 0}
+.error{color:#dc3545;font-size:14px;text-align:center;margin-top:12px}
+.loader{text-align:center;font-size:14px;color:#777;margin-top:12px;display:none}
+</style>
 </head>
 
 <body>
@@ -144,16 +66,15 @@
 
   <div class="field">
     <label>نام کاربری</label>
-    <input id="username" placeholder="نام کاربری" />
+    <input id="username" placeholder="نام کاربری">
   </div>
 
   <div class="field">
     <label>رمز عبور</label>
-    <input id="password" type="password" placeholder="••••••" />
+    <input id="password" type="password" placeholder="••••••">
   </div>
 
   <button class="btn primary" onclick="login()">ورود به سامانه</button>
-
   <div id="loader" class="loader">در حال ورود...</div>
   <div id="error" class="error"></div>
 </div>
@@ -165,74 +86,46 @@
 
   <button class="btn green menu-btn" onclick="go('')">➕ ثبت مراجع جدید</button>
   <button class="btn yellow menu-btn" onclick="go('?page=editReferral')">📝 ویرایش پرونده مراجع</button>
-  <button class="btn blue menu-btn" onclick="go('?page=sessions')">📅 مدیریت جلسات درمان</button>
+  <button class="btn blue menu-btn" onclick="go('?page=Appointments')">📅 نوبت دهی</button>
+  <button class="btn blue menu-btn" onclick="go('?page=report')">📅 مدیریت نوبت دهی</button>
+  <button class="btn blue menu-btn" onclick="go('?page=sessions')">🧩 مدیریت جلسات درمان</button>
   <button class="btn gray menu-btn" onclick="go('?page=referralReport')">📄 مشاهده و گزارش پرونده</button>
   <button class="btn clinic-btn menu-btn" onclick="go('?page=clinicReport')">🏥 گزارش کلینیک‌ها</button>
-  <button class="btn clinic-btn menu-btn" onclick="go('?page=SessionReport')">🏥 گزارش تکمیلی </button>
-  <button class="btn danger" style="margin-top:25px;" onclick="logout()">خروج از سامانه</button>
+  <button class="btn clinic-btn menu-btn" onclick="go('?page=SessionReport')">📈 گزارش تکمیلی</button>
+  <button class="btn danger" style="margin-top:25px;" onclick="logout()">🚪 خروج از سامانه</button>
 </div>
 
 <script>
-  const USERS = [
-    { user: "admin", pass: "1234" },
-    { user: "staff", pass: "5678" }
-  ];
+const USERS=[{user:"admin",pass:"1234"},{user:"staff",pass:"5678"}];
+const BASE="https://script.google.com/macros/s/AKfycbwhZf8S7RNNLusYGhDaw8QfQ-dxiD04yqaQQd_M7SzT/exec";
+const AUTO_LOGOUT_MINUTES=10;
 
-  const BASE = "https://script.google.com/macros/s/AKfycbwhZf8S7RNNLusYGhDaw8QfQ-dxiD04yqaQQd_M7SzT/exec";
-  const AUTO_LOGOUT_MINUTES = 10;
+function login(){
+  const u=username.value.trim(),p=password.value.trim();
+  const ok=USERS.find(x=>x.user===u&&x.pass===p);
+  if(!ok){error.innerText="نام کاربری یا رمز عبور نادرست است";return;}
+  error.innerText="";loader.style.display="block";
+  setTimeout(()=>{
+    localStorage.setItem("loggedIn","yes");
+    localStorage.setItem("loginTime",Date.now());
+    loginBox.classList.add("fade-out");
+    setTimeout(()=>{loginBox.style.display="none";menu.style.display="block";},400);
+  },900);
+}
 
-  function login() {
-    const u = username.value.trim();
-    const p = password.value.trim();
-    const ok = USERS.find(x => x.user === u && x.pass === p);
-
-    if (!ok) {
-      error.innerText = "نام کاربری یا رمز عبور نادرست است";
-      return;
-    }
-
-    error.innerText = "";
-    loader.style.display = "block";
-
-    setTimeout(() => {
-      localStorage.setItem("loggedIn", "yes");
-      localStorage.setItem("loginTime", Date.now());
-
-      loginBox.classList.add("fade-out");
-
-      setTimeout(() => {
-        loginBox.style.display = "none";
-        menu.style.display = "block";
-      }, 400);
-    }, 900);
-  }
-
-  function logout() {
-    localStorage.clear();
-    location.reload();
-  }
-
-  function go(q) { window.location.href = BASE + q; }
-
-  function checkAutoLogout() {
-    const t = localStorage.getItem("loginTime");
-    if (!t) return;
-    const diff = (Date.now() - parseInt(t)) / 60000;
-    if (diff > AUTO_LOGOUT_MINUTES) logout();
-  }
-
-  setInterval(checkAutoLogout, 30000);
-
-  if (localStorage.getItem("loggedIn") === "yes") {
-    setTimeout(() => {
-      loginBox.style.display = "none";
-      menu.style.display = "block";
-    }, 300);
-  }
-
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
-  }
+function logout(){localStorage.clear();location.reload();}
+function go(q){window.location.href=BASE+q;}
+function checkAutoLogout(){
+  const t=localStorage.getItem("loginTime");
+  if(!t)return;
+  const diff=(Date.now()-parseInt(t))/60000;
+  if(diff>AUTO_LOGOUT_MINUTES)logout();
+}
+setInterval(checkAutoLogout,30000);
+if(localStorage.getItem("loggedIn")==="yes"){
+  setTimeout(()=>{loginBox.style.display="none";menu.style.display="block";},300);
+}
+if("serviceWorker"in navigator){navigator.serviceWorker.register("sw.js");}
 </script>
 
 </body>
