@@ -26,7 +26,7 @@ body{
 .fade-out{animation:fadeOut .5s ease forwards}
 @keyframes fadeOut{to{opacity:0;transform:translateY(-20px)}}
 h1,h2{margin:0 0 10px;text-align:center;color:#563d7c;font-weight:600}
-.subtitle{text-align:center;font-size:14px;color:#777;margin-bottom:25px;line-height:1.6}
+.subtitle{text-align:center;font-size:14px;color:#555;margin-bottom:25px;line-height:1.6}
 .field{margin-bottom:18px;text-align:right}
 .field label{display:block;font-size:13px;margin-bottom:6px;color:#555}
 .field input{
@@ -43,17 +43,22 @@ h1,h2{margin:0 0 10px;text-align:center;color:#563d7c;font-weight:600}
   color:#fff;font-weight:500;transition:transform .1s,box-shadow .2s,background .2s
 }
 .btn:active{transform:scale(.97)}
-.btn:hover{box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.btn:hover{box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.menu-btn{margin:8px 0}
+.error{color:#dc3545;font-size:14px;text-align:center;margin-top:12px}
+.loader{text-align:center;font-size:14px;color:#777;margin-top:12px;display:none}
+
+/* رنگ دکمه ها متفاوت */
 .primary{background:#6f42c1}.primary:hover{background:#5a34ad}
 .green{background:#28a745}.green:hover{background:#23923d}
 .yellow{background:#ffc107;color:#222}.yellow:hover{background:#e0ac07}
 .blue{background:#007bff}.blue:hover{background:#0069d9}
-.gray{background:#6c757d}.gray:hover{background:#5a6268}
+.orange{background:#fd7e14}.orange:hover{background:#e36b0b}
+.purple{background:#6610f2}.purple:hover{background:#520dcf}
+.teal{background:#20c997}.teal:hover{background:#1aa179}
 .danger{background:#dc3545}.danger:hover{background:#c82333}
 .clinic-btn{background:#f8f0ff;color:#4b2c83}.clinic-btn:hover{background:#eaddff}
-.menu-btn{margin:8px 0}
-.error{color:#dc3545;font-size:14px;text-align:center;margin-top:12px}
-.loader{text-align:center;font-size:14px;color:#777;margin-top:12px;display:none}
+
 </style>
 </head>
 
@@ -84,14 +89,14 @@ h1,h2{margin:0 0 10px;text-align:center;color:#563d7c;font-weight:600}
   <h1>📋 سامانه مدیریت مراجعین</h1>
   <p class="subtitle">دکتر ملیحه غفوری منش</p>
 
-  <button class="btn green menu-btn" onclick="go('')">➕ ثبت مراجع جدید</button>
-  <button class="btn yellow menu-btn" onclick="go('?page=editReferral')">📝 ویرایش پرونده مراجع</button>
-  <button class="btn blue menu-btn" onclick="go('?page=Appointments')">📅 نوبت دهی</button>
-  <button class="btn blue menu-btn" onclick="go('?page=report')">📅 مدیریت نوبت دهی</button>
-  <button class="btn blue menu-btn" onclick="go('?page=sessions')">🧩 مدیریت جلسات درمان</button>
-  <button class="btn gray menu-btn" onclick="go('?page=referralReport')">📄 مشاهده و گزارش پرونده</button>
-  <button class="btn clinic-btn menu-btn" onclick="go('?page=clinicReport')">🏥 گزارش کلینیک‌ها</button>
-  <button class="btn clinic-btn menu-btn" onclick="go('?page=SessionReport')">📈 گزارش تکمیلی</button>
+  <button class="btn green menu-btn" onclick="go('','_blank')">➕ ثبت مراجع جدید</button>
+  <button class="btn yellow menu-btn" onclick="go('?page=editReferral','_blank')">📝 ویرایش پرونده مراجع</button>
+  <button class="btn blue menu-btn" onclick="go('?page=Appointments','_blank')">📅 نوبت دهی</button>
+  <button class="btn orange menu-btn" onclick="go('?page=report','_blank')">📊 مدیریت نوبت دهی</button>
+  <button class="btn purple menu-btn" onclick="go('?page=sessions','_blank')">🧩 مدیریت جلسات درمان</button>
+  <button class="btn teal menu-btn" onclick="go('?page=referralReport','_blank')">📄 مشاهده و گزارش پرونده</button>
+  <button class="btn clinic-btn menu-btn" onclick="go('?page=clinicReport','_blank')">🏥 گزارش کلینیک‌ها</button>
+  <button class="btn clinic-btn menu-btn" onclick="go('?page=SessionReport','_blank')">📈 گزارش تکمیلی</button>
   <button class="btn danger" style="margin-top:25px;" onclick="logout()">🚪 خروج از سامانه</button>
 </div>
 
@@ -114,7 +119,7 @@ function login(){
 }
 
 function logout(){localStorage.clear();location.reload();}
-function go(q){window.location.href=BASE+q;}
+function go(q,target='_self'){window.open(BASE+q,target);}
 function checkAutoLogout(){
   const t=localStorage.getItem("loginTime");
   if(!t)return;
